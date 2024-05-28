@@ -20,28 +20,43 @@ Also, state python version, and the compute environment where the code was execu
 ## Data
 Data downloaded from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
 
-## Dataset Card
-
-Data consists of two dataframes **train** and **test**.
-
 ## Data Processing
 
 Data Processing involved:
-- removing rows with empty cells
+- adjusting indexing
+- removing rows with empty cells in columns: 'text', 'text_b', 'label'
+
+- **Train** data split for ***train*** and ***validation*** sets
+
+## Dataset Card
+
+Data consists of two dataframes **Train** and **Test**.
+
+| Table 1.                      | Train | Test  |
+| ---                           | ---   | ---   |
+| Number of samples             | 3030  | 800   |
+| Distinct patent applications  | 2406  |
+| Distinct cited documents      | 2445  |
+| Distinct claim texts          | 2911
+| Distinct cited paragraphs     | 2957
+| Median claim length (chars)   | 
+| Median paragraph length (chars) | 
 
 ## Columns Description
 
 | Column Name           | Descritption  |
 |---                    | ---           |
 | index                 | index number  |
-| claim_id              | claim         |
-| patent_application_id | id            |
-| cited_document_id     | id            |
-| text                  | content       |
-| text_b                | content b     |
-| label                 | label         |
+| claim_id              | id of claim from patent application|
+| patent_application_id | id of patent application  |
+| cited_document_id     | id of cited document      |
+| text                  | claim text |
+| text_b                | cited paragraph text |
+| label                 | 0 - not-novelty-destroying (“A” documents, negative samples); 1 - novelty-destroying (“X” documents, positive samples) |
 | date                  | date          |
-| DIznQ_0               | 0 - , 1 -     |
+| DIznQ_0               | DIznQ_0       |
+
+
 
 ## Credentials
 
