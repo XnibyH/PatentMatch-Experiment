@@ -11,8 +11,8 @@ Do provide project goal from the PoE document.
 Do provide a bullet-proof description so that a person who never used this code will know how to get started.
 
 ```
-Specifically, do provide a section with information how to copy the repository.
-git clone git@github.com:HumanDevIP/Experiment-repository-template.git
+git clone https://github.com/XnibyH/PatentMatch-Experiment.git
+cd PatentMatch-Experiment
 ```
 
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
