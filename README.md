@@ -18,7 +18,10 @@ git clone git@github.com:HumanDevIP/Experiment-repository-template.git
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
 ## Data
-Data downloaded to *data* from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
+
+Reproduce the data processing:
+- Download `train.parquet` and `test.parquet` to **data** dir from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
+- Run the [data_exploration notebook](notebooks/data_exploration.ipynb).
 
 ## Data Processing
 
