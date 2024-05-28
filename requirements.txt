@@ -1,1 +1,3 @@
 # do provide specific versions of your dependencies
+mlflow
+python-dotenv

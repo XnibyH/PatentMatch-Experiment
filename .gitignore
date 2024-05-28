@@ -5,4 +5,5 @@ mlruns/*
 !mlruns/.gitkeep
 data/
 !data/.gitkeep
+.venv
 
