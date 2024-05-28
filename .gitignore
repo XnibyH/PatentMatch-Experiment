@@ -1,0 +1,8 @@
+.env
+artifacts/*
+!artifacts/.gitkeep
+mlruns/*
+!mlruns/.gitkeep
+data/
+!data/.gitkeep
+
