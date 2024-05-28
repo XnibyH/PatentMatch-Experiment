@@ -18,31 +18,38 @@ git clone git@github.com:HumanDevIP/Experiment-repository-template.git
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
 ## Data
-Data downloaded from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
+Data downloaded to *data* from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
 
 ## Data Processing
 
-Data Processing involved:
-- adjusting indexing
-- removing rows with empty cells in columns: 'text', 'text_b', 'label'
-
-- **Train** data split for ***train*** and ***validation*** sets
+Data Processing as shown in [data_exploration notebook](notebooks/data_exploration.ipynb) involved:
+- Fixing indexing based on *unnamed_col* and *index* columns
+- Dropping NaNs in columns' subset: *updated_index*/*index*, *text*, *text_b*, *label*
+- Dropping duplicated rows based on columns' subset: *text*, *text_b*
+- Saving new files in *data* folder: **train_clean.parquet** and **test_clean.parquet**
+- Further **Train** data split for **Train** and **Validation** sets during a model training
 
 ## Dataset Card
 
-Data consists of two dataframes **Train** and **Test**.
+Data consists of **Train** and **Test** sets and is characterized in Table 1.
 
-| Table 1.                      | Train | Test  |
-| ---                           | ---   | ---   |
-| Number of samples             | 3030  | 800   |
-| Distinct patent applications  | 2406  |
-| Distinct cited documents      | 2445  |
-| Distinct claim texts          | 2911
-| Distinct cited paragraphs     | 2957
-| Median claim length (chars)   | 
-| Median paragraph length (chars) | 
+| Table 1.                         | Train | Test  | 
+| ---                              | ---   | ---   |
+| Number of samples                | 2912  | 768   |
+| Distinct patent applications     | 2346  | 597   |
+| Distinct cited documents         | 2382  | 614   |
+| Distinct claim texts             | 285   | 749   |
+| Distinct cited paragraphs        | 289   | 766   |
+| Median claim length (chars)      | 271   | 289   |
+| Median paragraph length (chars)  | 479.5 | 478.5 |
+| Mean claim length (chars)        | 391   | 428   |
+| Mean paragraph length (chars)    | 578   | 566   |
+| Non-novelty-destroying (Label 0) | 1214  | 423   |
+| Novelty-destroying (Label 1)     | 1698  | 345   |
 
 ## Columns Description
+
+Table 2. shows description of the columns from the Dataset
 
 | Column Name           | Descritption  |
 |---                    | ---           |
@@ -52,11 +59,9 @@ Data consists of two dataframes **Train** and **Test**.
 | cited_document_id     | id of cited document      |
 | text                  | claim text |
 | text_b                | cited paragraph text |
-| label                 | 0 - not-novelty-destroying (“A” documents, negative samples); 1 - novelty-destroying (“X” documents, positive samples) |
+| label                 | 0 - non-novelty-destroying (“A” documents, negative samples); 1 - novelty-destroying (“X” documents, positive samples) |
 | date                  | date          |
 | DIznQ_0               | DIznQ_0       |
-
-
 
 ## Credentials
 
