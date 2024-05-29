@@ -8,12 +8,27 @@ The <a href:=https://www.notion.so/Experiment-Report-Template-450e66b444c74039bd
 Do provide project goal from the PoE document.
 
 ## A long section about how to run the code, examples of use, requirements, and similar.
-Do provide a bullet-proof description so that a person who never used this code will know how to get started.
 
+Steps to reproduce findings in this work
+
+- Download this repository:
 ```
 git clone https://github.com/XnibyH/PatentMatch-Experiment.git
 cd PatentMatch-Experiment
 ```
+
+- Create .env file with your credentials
+```
+cp example.env .env
+nano .env
+```
+```shell
+MLFLOW_TRACKING_URI=
+```
+
+- Recreate the processed data:
+    - Download `train.parquet` and `test.parquet` to **data** dir from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
+    - Run the [data_exploration notebook](notebooks/data_exploration.ipynb).
 
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
@@ -55,23 +70,15 @@ Data consists of **Train** and **Test** sets and is characterized in Table 1.
 Table 2. shows description of the columns from the Dataset
 
 | Column Name           | Descritption  |
-|---                    | ---           |
+| ---                   | ---           |
 | index                 | index number  |
 | claim_id              | id of claim from patent application|
 | patent_application_id | id of patent application  |
 | cited_document_id     | id of cited document      |
-| text                  | claim text |
+| text                  | claim text    |
 | text_b                | cited paragraph text |
-| label                 | 0 - non-novelty-destroying (“A” documents, negative samples); 1 - novelty-destroying (“X” documents, positive samples) |
+| label                 | <table> <tbody>  <tr>  <td>0</td>  <td>non-novelty-destroying (“A” documents, negative samples)</td>  </tr>  <tr>  <td>1</td>  <td>novelty-destroying (“X” documents, positive samples)</td>  </tr>  </tbody>  </table> |
 | date                  | date          |
 | DIznQ_0               | DIznQ_0       |
 
-## Credentials
-
-Create .env file:
-
-```shell
-MLFLOW_TRACKING_URI=https://mlflow.dev.humandev.org/
-MLFLOW_TRACKING_USERNAME=
-MLFLOW_TRACKING_PASSWORD=
-```
+## END SECTION
