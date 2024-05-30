@@ -1,15 +1,20 @@
-# Experiment title 
+# Early baseline for claim&cited-paragraph classification on PatentMatch
 
-The corresponding <a href:=https://www.notion.so/Plan-of-Experiment-PoE-template-efed4153dd7849c5979e9abb00293ec0>Plan of Experiment is provided here</a>.
+The corresponding Plan of Experiment is provided <a href:=https://www.notion.so/Early-baseline-for-claim-cited-paragraph-classification-on-PatentMatch-Michal-66d57dc044954503aa969fbb6edc4acc>here</a>.
 \
-The <a href:=https://www.notion.so/Experiment-Report-Template-450e66b444c74039bd1beda4f6c226a9>Full Report</a> describing the effort is also available.
+The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Paragraph-Classification-b55cf6d528e34958947742ea152dea52>Report</a> describing the effort is also available.
 
 ## Goal of the experiment
-Do provide project goal from the PoE document.
+
+- On-hands discovery of the PatentMatch dataset, obtaining very preliminary baseline quality on the claim&cited-paragraph classification task (2 texts on model input, one binary classification label on output).
+
+- Learn how to use the newly introduced standards for implementation of research experiments.
 
 ## A long section about how to run the code, examples of use, requirements, and similar.
 
-- Open in Colab and run the notebook  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
+
+- Open in Colab and run the notebook  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
 
 OR MANUALLY:
 
@@ -33,8 +38,6 @@ MLFLOW_TRACKING_URI=
 - Recreate the processed data:
     - Download `train.parquet` and `test.parquet` to **data** dir from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
     - Run the [data_exploration notebook](notebooks/data_exploration.ipynb).
-
-Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
 ## Data
 
@@ -89,28 +92,26 @@ Table 2. shows description of the columns from the Dataset
 
 After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model and framework. I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
 
+Due to limited time and available computational resources, I chose the MODEL to illustrate the base benchmark for transformer models for conducting this experiment.
+
+Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
+
 ## Model Selection
 
 In the table below, selected models are listed along with a brief description.
 
->| Model | Size | License | Notes |
->| ----- | ---- | ------- | ----- |
->| [ALL MPNET BASE V2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) | 438 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Sentence-Transformer model for basic evaluation purposes offering best quality according to [Original Models table](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#original-models) |
->| [STSB ROBERTA LARGE](https://huggingface.co/cross-encoder/stsb-roberta-large ) | 1420 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Cross-Encoder model with better performance than Bi-Encoders in sentences comparison tasks. [*](https://arxiv.org/abs/1908.10084) |
->| [STSB ROBERTA BASE](https://huggingface.co/cross-encoder/stsb-roberta-base) | 499 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Base version of previous model. |
->| [Legal-BERT](https://huggingface.co/nlpaueb/legal-bert-base-uncased) | 440 MB | [CC-BY-SA-4.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/cc-by-sa-4.0.md) | BERT model for the legal domain. |
->| [EURLEX-BERT](https://huggingface.co/nlpaueb/bert-base-uncased-eurlex) | 440 MB | [CC-BY-SA-4.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/cc-by-sa-4.0.md) | Sub-domain variant of Legal-BERT pre-trained on EU legislation. |
->| [SciBERT](https://huggingface.co/allenai/scibert_scivocab_uncased) | 442 MB | [Apache 2.0](https://github.com/allenai/scibert?tab=Apache-2.0-1-ov-file#readme) | BERT model trained on scientific text. [Paper](https://arxiv.org/pdf/1903.10676) |
+| Model | Size | License | Notes |
+| ----- | ---- | ------- | ----- |
+| [ALL MPNET BASE V2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) | 438 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Sentence-Transformer model for basic evaluation purposes. Offering best quality to embedded sentences (Performance Sentence Embeddings) and to embedded search queries & paragraphs (Performance Semantic Search) according to [Original Models table](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#original-models). |
+| [STSB ROBERTA LARGE](https://huggingface.co/cross-encoder/stsb-roberta-large ) | 1420 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Cross-Encoder model with better performance than Bi-Encoders in sentences comparison tasks. [*](https://arxiv.org/abs/1908.10084) |
+| [STSB ROBERTA BASE](https://huggingface.co/cross-encoder/stsb-roberta-base) | 499 MB | [Apache 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md) | Base version of previous model. |
+| [Legal-BERT](https://huggingface.co/nlpaueb/legal-bert-base-uncased) | 440 MB | [CC-BY-SA-4.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/cc-by-sa-4.0.md) | BERT model for the legal domain. |
+| [EURLEX-BERT](https://huggingface.co/nlpaueb/bert-base-uncased-eurlex) | 440 MB | [CC-BY-SA-4.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/cc-by-sa-4.0.md) | Sub-domain variant of Legal-BERT pre-trained on EU legislation. |
+| [SciBERT](https://huggingface.co/allenai/scibert_scivocab_uncased) | 442 MB | [Apache 2.0](https://github.com/allenai/scibert?tab=Apache-2.0-1-ov-file#readme) | BERT model trained on scientific text. [Paper](https://arxiv.org/pdf/1903.10676) |
 
 >Other potential models for future investigation: 
 >- [BERT for Patents](https://huggingface.co/anferico/bert-for-patents)
->- [PatentSBERTa](https://huggingface.co/AI-Growth-Lab/PatentSBERTa) [Paper](https://arxiv.org/abs/2103.11933)
+>- [PatentSBERTa](https://huggingface.co/AI-Growth-Lab/PatentSBERTa) ([Arxiv Paper](https://arxiv.org/abs/2103.11933))
 >- [Pegasus Big Patent](https://huggingface.co/google/pegasus-big_patent)
 >- [BigBirdPegasus model (large)](https://huggingface.co/google/bigbird-pegasus-large-bigpatent)
 >- [PatentSBERTa_V2](https://huggingface.co/AAUBS/PatentSBERTa_V2)
->
-
-For the purpose of conducting this experiment, I chose the MODEL as the baseline model to illustrate the benchmark for transformer models.
-
-In the next steps, I propose testing all models from the list on a selected test subset of data, thereby making a selection for the model to be fine-tuned.
-
