@@ -14,7 +14,9 @@ The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Para
 
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
-- Open in Colab and run the notebook  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
+- Open in Colab and run the notebook  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)  
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
 
 OR MANUALLY:
 
