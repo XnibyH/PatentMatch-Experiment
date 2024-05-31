@@ -12,6 +12,14 @@ The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Para
 
 ## A long section about how to run the code, examples of use, requirements, and similar.
 
+### Prerequisites
+
+>performed in local environmet and in google colab
+
+#### Run locally
+
+#### Run in Google Colab
+
 Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
 
 - Run the colab version notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/finetuning_transformer_notebook.ipynb)  
@@ -28,7 +36,7 @@ git clone https://github.com/XnibyH/PatentMatch-Experiment.git
 cd PatentMatch-Experiment
 ```
 
-- Create .env file with your credentials
+- Create .env file with your credentials and variables
 ```
 cp example.env .env
 nano .env
@@ -60,6 +68,22 @@ Data Processing as shown in [data_exploration notebook](notebooks/data_explorati
 - Saving new files in *data* folder: **train_clean.parquet** and **test_clean.parquet**
 - Further **Train** data split for **Train** and **Validation** sets during a model training
 
+### Columns Description
+
+Table 2. shows description of the columns from the Dataset
+
+| Column Name           | Descritption  |
+| ---                   | ---           |
+| index                 | index number  |
+| claim_id              | id of claim from patent application|
+| patent_application_id | id of patent application  |
+| cited_document_id     | id of cited document      |
+| text                  | claim text    |
+| text_b                | cited paragraph text |
+| label                 | <table> <tbody>  <tr>  <td>0</td>  <td>non-novelty-destroying (“A” documents, negative samples)</td>  </tr>  <tr>  <td>1</td>  <td>novelty-destroying (“X” documents, positive samples)</td>  </tr>  </tbody>  </table> |
+| date                  | date          |
+| DIznQ_0               | DIznQ_0       |
+
 ### Dataset Card
 
 Data consists of **Train** and **Test** sets and is characterized in Table 1.
@@ -78,25 +102,9 @@ Data consists of **Train** and **Test** sets and is characterized in Table 1.
 | Non-novelty-destroying (Label 0) | 1214  | 423   |
 | Novelty-destroying (Label 1)     | 1698  | 345   |
 
-### Columns Description
-
-Table 2. shows description of the columns from the Dataset
-
-| Column Name           | Descritption  |
-| ---                   | ---           |
-| index                 | index number  |
-| claim_id              | id of claim from patent application|
-| patent_application_id | id of patent application  |
-| cited_document_id     | id of cited document      |
-| text                  | claim text    |
-| text_b                | cited paragraph text |
-| label                 | <table> <tbody>  <tr>  <td>0</td>  <td>non-novelty-destroying (“A” documents, negative samples)</td>  </tr>  <tr>  <td>1</td>  <td>novelty-destroying (“X” documents, positive samples)</td>  </tr>  </tbody>  </table> |
-| date                  | date          |
-| DIznQ_0               | DIznQ_0       |
-
 ## Model
 
-After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model and framework. I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
+After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model (and Huggingface framework). I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
 
 Due to limited time and available computational resources, I chose the MODEL to illustrate the base benchmark for transformer models for conducting this experiment.
 
@@ -121,3 +129,5 @@ In the table below, selected models are listed along with a brief description.
 >- [Pegasus Big Patent](https://huggingface.co/google/pegasus-big_patent)
 >- [BigBirdPegasus model (large)](https://huggingface.co/google/bigbird-pegasus-large-bigpatent)
 >- [PatentSBERTa_V2](https://huggingface.co/AAUBS/PatentSBERTa_V2)
+
+### Model Training Details
