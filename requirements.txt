@@ -7,3 +7,4 @@ python-dotenv==1.0.1
 psutil==5.9.8
 pynvml==11.5.0
 datasets==2.19.1
+evaluate==0.4.2
