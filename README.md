@@ -31,7 +31,8 @@ OR MANUALLY:
 Steps to reproduce findings in this work
 
 - Download this repository:
-```
+
+```shell
 git clone https://github.com/XnibyH/PatentMatch-Experiment.git
 cd PatentMatch-Experiment
 ```
