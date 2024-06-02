@@ -1,8 +1,8 @@
 # Early baseline for claim&cited-paragraph classification on PatentMatch
 
->**Note**  
->The corresponding Plan of Experiment is provided <a href:=https://www.notion.so/Early-baseline-for-claim-cited-paragraph-classification-on-PatentMatch-Michal-66d57dc044954503aa969fbb6edc4acc>here</a>.  
->The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Paragraph-Classification-b55cf6d528e34958947742ea152dea52>Report</a> describing the effort is also available.
+**Note**  
+The corresponding Plan of Experiment is provided <a href:=https://www.notion.so/Early-baseline-for-claim-cited-paragraph-classification-on-PatentMatch-Michal-66d57dc044954503aa969fbb6edc4acc>here</a>.  
+The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Paragraph-Classification-b55cf6d528e34958947742ea152dea52>Report</a> describing the effort is also available.
 
 
 ## Goal of the experiment
