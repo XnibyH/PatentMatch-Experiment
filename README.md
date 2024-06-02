@@ -132,8 +132,20 @@ Dataset consists of **Train** and **Test** sets and is characterized in Table 2.
 
 After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model and Huggingface framework. I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
 
+Due to limited time and available computational resources, I chose the set of 3 models (**STSB ROBERTA BASE**, **STSB ROBERTA LARGE**, **Legal-BERT**) to illustrate the base benchmark for transformer models for conducting this experiment.
 
-### Model Selection
+Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
+
+### Fine-Tuned Models Information
+
+| Model | Size | Metrics Before Fine-Tuning | Metrics After Fine-Tuning |
+| ----- | ---- | ------- | ----- |
+| [STSB ROBERTA BASE](https://huggingface.co/cross-encoder/stsb-roberta-base) | 499 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.472</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.070</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.623</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.081</td>  </tr>  </tbody>  </table> |
+| [STSB ROBERTA LARGE](https://huggingface.co/cross-encoder/stsb-roberta-large ) | 1420 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.544</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.004</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.617</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.011</td>  </tr>  </tbody>  </table> |
+| [Legal-BERT](https://huggingface.co/nlpaueb/legal-bert-base-uncased) | 440 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.603</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.027</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.621</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.033</td>  </tr>  </tbody>  </table> |
+
+
+### Potential Model Selection for Further Investigation
 
 In the table below, selected models are listed along with a brief description.
 
@@ -152,19 +164,3 @@ In the table below, selected models are listed along with a brief description.
 >- [Pegasus Big Patent](https://huggingface.co/google/pegasus-big_patent)
 >- [BigBirdPegasus model (large)](https://huggingface.co/google/bigbird-pegasus-large-bigpatent)
 >- [PatentSBERTa_V2](https://huggingface.co/AAUBS/PatentSBERTa_V2)
-
-
-### Model Training Details
-
-Due to limited time and available computational resources, I chose the set of 3 models (**STSB ROBERTA BASE**, **STSB ROBERTA LARGE**, **Legal-BERT**) to illustrate the base benchmark for transformer models for conducting this experiment.
-
-Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
-
-
-### Fine-Tuned Models Information
-
-| Model | Size | Metrics Before Fine-Tuning | Metrics After Fine-Tuning |
-| ----- | ---- | ------- | ----- |
-| [STSB ROBERTA BASE](https://huggingface.co/cross-encoder/stsb-roberta-base) | 499 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.472</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.070</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.623</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.081</td>  </tr>  </tbody>  </table> |
-| [STSB ROBERTA LARGE](https://huggingface.co/cross-encoder/stsb-roberta-large ) | 1420 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.544</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.004</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.617</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.011</td>  </tr>  </tbody>  </table> |
-| [Legal-BERT](https://huggingface.co/nlpaueb/legal-bert-base-uncased) | 440 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.603</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.027</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.621</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.033</td>  </tr>  </tbody>  </table> |
