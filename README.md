@@ -159,3 +159,12 @@ In the table below, selected models are listed along with a brief description.
 Due to limited time and available computational resources, I chose the set of 3 models (**STSB ROBERTA BASE**, **STSB ROBERTA LARGE**, **Legal-BERT**) to illustrate the base benchmark for transformer models for conducting this experiment.
 
 Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
+
+
+### Fine-Tuned Models Information
+
+| Model | Size | Metrics Before Fine-Tuning | Metrics After Fine-Tuning |
+| ----- | ---- | ------- | ----- |
+| [STSB ROBERTA BASE](https://huggingface.co/cross-encoder/stsb-roberta-base) | 499 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.472</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.070</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.623</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.081</td>  </tr>  </tbody>  </table> |
+| [STSB ROBERTA LARGE](https://huggingface.co/cross-encoder/stsb-roberta-large ) | 1420 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.544</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.004</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.617</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.011</td>  </tr>  </tbody>  </table> |
+| [Legal-BERT](https://huggingface.co/nlpaueb/legal-bert-base-uncased) | 440 MB | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.603</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.027</td>  </tr>  </tbody>  </table> | <table> <tbody>  <tr>  <td>F1 Score</td>  <td>0.621</td>  </tr>  <tr>  <td>Matthews Correlation Coefficient</td>  <td>0.033</td>  </tr>  </tbody>  </table> |
