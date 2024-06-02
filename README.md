@@ -19,7 +19,7 @@
 
 The experiment was conducted on a machine running **Ubuntu 22.04 LTS** with **Python 3.10.12** equipped with an **NVIDIA GeForce RTX 3090 24 GB** VRAM graphics card.  
 
-To recreate this experiment on a similar setup machine go to [Local Experiment](#run-locally) section. Otherwise skip to [Google Colab](#run-in-google-colab) section.
+To recreate this experiment on a similar setup machine go to [Local Experiment](#run-locally) section. Otherwise skip to [Google Colab](#google-colab-experiment) section.
 
 
 ### Local Experiment
