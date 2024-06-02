@@ -1,8 +1,9 @@
 # Early baseline for claim&cited-paragraph classification on PatentMatch
 
-The corresponding Plan of Experiment is provided <a href:=https://www.notion.so/Early-baseline-for-claim-cited-paragraph-classification-on-PatentMatch-Michal-66d57dc044954503aa969fbb6edc4acc>here</a>.
-\
-The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Paragraph-Classification-b55cf6d528e34958947742ea152dea52>Report</a> describing the effort is also available.
+>**Note**  
+>The corresponding Plan of Experiment is provided <a href:=https://www.notion.so/Early-baseline-for-claim-cited-paragraph-classification-on-PatentMatch-Michal-66d57dc044954503aa969fbb6edc4acc>here</a>.  
+>The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Paragraph-Classification-b55cf6d528e34958947742ea152dea52>Report</a> describing the effort is also available.
+
 
 ## Goal of the experiment
 
@@ -10,31 +11,30 @@ The <a href:=https://www.notion.so/Report-Michal-Early-Baseline-PatentMatch-Para
 
 - Learn how to use the newly introduced standards for implementation of research experiments.
 
-## A long section about how to run the code, examples of use, requirements, and similar.
+
+## Experiment Description
+
 
 ### Prerequisites
 
->performed in local environmet and in google colab
+The experiment was conducted on a machine running **Ubuntu 22.04 LTS** with **Python 3.10.12** equipped with an **NVIDIA GeForce RTX 3090 24 GB** VRAM graphics card.  
 
-#### Run locally
+To recreate this experiment on a similar setup machine go to [Local Experiment](#run-locally) section. Otherwise skip to [Google Colab](#run-in-google-colab) section.
 
-#### Run in Google Colab
 
-Also, state python version, and the compute environment where the code was executed (Ubuntu 22.04.LTS at a local machine, AWS EC2, and similar).
+### Local Experiment
 
-- Run the colab version notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/finetuning_transformer_notebook.ipynb)  
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
-
-OR MANUALLY:
-
-Steps to reproduce findings in this work
-
-- Download this repository:
-
+- Download this repository
 ```shell
 git clone https://github.com/XnibyH/PatentMatch-Experiment.git
 cd PatentMatch-Experiment
+```
+
+- Create venv and install experiment dependencies
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 - Create .env file with your credentials and variables
@@ -42,23 +42,45 @@ cd PatentMatch-Experiment
 cp example.env .env
 nano .env
 ```
+
+- Change your credentials, save & exit
 ```shell
-MLFLOW_TRACKING_URI=
+MLFLOW_TRACKING_URI= 'https://mlflow.example-server.com/'  # provide valid mlflow server address,
+MLFLOW_TRACKING_USERNAME= 'Your_Name'  # your name,
+MLFLOW_TRACKING_PASSWORD= 'PA55VVORD'  # password,
+MLFLOW_EXPERIMENT_NAME = 'Your_Name_PatentMatchBaseline'  # and update the experiment name,
+MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metrics: GPU utilization etc.
 ```
 
-- Recreate the processed data:
-    - Download `train.parquet` and `test.parquet` to **data** dir from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
-    - Run the [data_exploration notebook](notebooks/data_exploration.ipynb).
+- **Download** experiment dataset: `train.parquet` and `test.parquet` to **`./data`** folder from [Google Drive](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
 
-- training: stratification ???
+- Recreate processed dataset for **fine-tuning** and **testing** (described in [Data](#data) section).
+```shell
+python recreate_dataset.py
+```
 
-“The Matthews correlation coefficient is used in machine learning as a measure of the quality of binary (two-class) classifications. It takes into account true and false positives and negatives and is generally regarded as a balanced measure which can be used even if the classes are of very different sizes. The MCC is in essence a correlation coefficient value between -1 and +1. A coefficient of +1 represents a perfect prediction, 0 an average random prediction and -1 an inverse prediction. The statistic is also known as the phi coefficient.”
+- Run **fine-tuning** script
+```shell
+python finetune.py
+```
+
+- Run **testing** script
+```shell
+python finetune.py
+```
+
+
+### Google Colab Experiment
+
+To recreate the experiment in the Google Colab environment, click on the button below.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
+
 
 ## Data
 
-Reproduce the data processing:
-- Download `train.parquet` and `test.parquet` to **data** dir from [Google Drive Folder](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
-- Run the [data_exploration notebook](notebooks/data_exploration.ipynb).
+Download source files `train.parquet` and `test.parquet` from [Google Drive](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link) and save in **`./data`** folder.
+
 
 ### Data Processing
 
