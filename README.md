@@ -59,7 +59,7 @@ MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metric
 python recreate_dataset.py
 ```
 
-- Run **fine-tuning** script
+- Run **fine-tuning** script for 
 ```shell
 python finetune.py
 ```
@@ -91,6 +91,7 @@ Data Processing as shown in [data_exploration notebook](notebooks/data_explorati
 - Saving new files in *data* folder: **train_clean.parquet** and **test_clean.parquet**
 - Further **Train** data split for **Train** and **Validation** sets during a model training
 
+
 ### Columns Description
 
 Table 2. shows description of the columns from the Dataset
@@ -106,6 +107,7 @@ Table 2. shows description of the columns from the Dataset
 | label                 | <table> <tbody>  <tr>  <td>0</td>  <td>non-novelty-destroying (“A” documents, negative samples)</td>  </tr>  <tr>  <td>1</td>  <td>novelty-destroying (“X” documents, positive samples)</td>  </tr>  </tbody>  </table> |
 | date                  | date          |
 | DIznQ_0               | DIznQ_0       |
+
 
 ### Dataset Card
 
@@ -125,13 +127,15 @@ Dataset consists of **Train** and **Test** sets and is characterized in Table 1.
 | Non-novelty-destroying (Label 0) | 1214  | 423   |
 | Novelty-destroying (Label 1)     | 1698  | 345   |
 
+
 ## Model
 
-After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model (and Huggingface framework). I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
+After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model and Huggingface framework. I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
 
 Due to limited time and available computational resources, I chose the MODEL to illustrate the base benchmark for transformer models for conducting this experiment.
 
 Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
+
 
 ### Model Selection
 
@@ -152,5 +156,6 @@ In the table below, selected models are listed along with a brief description.
 >- [Pegasus Big Patent](https://huggingface.co/google/pegasus-big_patent)
 >- [BigBirdPegasus model (large)](https://huggingface.co/google/bigbird-pegasus-large-bigpatent)
 >- [PatentSBERTa_V2](https://huggingface.co/AAUBS/PatentSBERTa_V2)
+
 
 ### Model Training Details
