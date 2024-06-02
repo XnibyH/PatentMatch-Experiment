@@ -59,14 +59,14 @@ MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metric
 python recreate_dataset.py
 ```
 
-- Run **fine-tuning** script for 
+- Run **fine-tuning** script for **stsb-roberta-large** model
 ```shell
 python finetune.py
 ```
 
-- Run **testing** script
+- Run **test** script for **stsb-roberta-large** and **stsb-roberta-large *fine-tuned*** model
 ```shell
-python finetune.py
+python evaluate.py
 ```
 
 
@@ -94,7 +94,7 @@ Data Processing as shown in [data_exploration notebook](notebooks/data_explorati
 
 ### Columns Description
 
-Table 2. shows description of the columns from the Dataset
+Table 1. shows description of the columns from the Dataset
 
 | Column Name           | Descritption  |
 | ---                   | ---           |
@@ -111,9 +111,9 @@ Table 2. shows description of the columns from the Dataset
 
 ### Dataset Card
 
-Dataset consists of **Train** and **Test** sets and is characterized in Table 1.
+Dataset consists of **Train** and **Test** sets and is characterized in Table 2.
 
-| Table 1.                         | Train | Test  | 
+| Table 2.                         | Train | Test  | 
 | ---                              | ---   | ---   |
 | Number of samples                | 2912  | 768   |
 | Distinct patent applications     | 2346  | 597   |
@@ -131,10 +131,6 @@ Dataset consists of **Train** and **Test** sets and is characterized in Table 1.
 ## Model
 
 After conducting a small and somewhat limited research in search of a suitable transformer model for the current task, I decided to use a cross-encoder model and Huggingface framework. I accepted the limitations associated with the lack of embeddings for individual sentences (e.g. inefficient clustering), but I am hoping to achieve better results with Cross Encoder compared to a Sentence Transformer (a.k.a. bi-encoder) (after https://arxiv.org/abs/1908.10084).
-
-Due to limited time and available computational resources, I chose the MODEL to illustrate the base benchmark for transformer models for conducting this experiment.
-
-Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
 
 
 ### Model Selection
@@ -159,3 +155,7 @@ In the table below, selected models are listed along with a brief description.
 
 
 ### Model Training Details
+
+Due to limited time and available computational resources, I chose the set of 3 models (**STSB ROBERTA BASE**, **STSB ROBERTA LARGE**, **Legal-BERT**) to illustrate the base benchmark for transformer models for conducting this experiment.
+
+Although, to thoroughly investigate the quality of the models, I would propose, in the further steps, testing all models from the list on a selected test subset of data. This would allow for the selection of a best model for fine-tuning.
