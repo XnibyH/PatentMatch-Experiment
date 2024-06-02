@@ -45,14 +45,14 @@ nano .env
 
 - Change your credentials, save & exit
 ```shell
-MLFLOW_TRACKING_URI= 'https://mlflow.example-server.com/'  # provide valid mlflow server address,
-MLFLOW_TRACKING_USERNAME= 'Your_Name'  # your name,
-MLFLOW_TRACKING_PASSWORD= 'PA55VVORD'  # password,
-MLFLOW_EXPERIMENT_NAME = 'Your_Name_PatentMatchBaseline'  # and update the experiment name,
+MLFLOW_TRACKING_URI= 'https://mlflow.example-server.com/'  # provide a valid mlflow server address,
+MLFLOW_TRACKING_USERNAME= 'User_Name'  # your user name,
+MLFLOW_TRACKING_PASSWORD= 'P455VV0RD'  # password,
+MLFLOW_EXPERIMENT_NAME = 'User_Name_PatentMatchBaseline'  # and update the experiment name,
 MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metrics: GPU utilization etc.
 ```
 
-- **Download** experiment dataset: `train.parquet` and `test.parquet` to **`./data`** folder from [Google Drive](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
+- **Download** experiment dataset: `train.parquet` and `test.parquet` to **`./data`** folder from [`Google Drive`](https://drive.google.com/drive/folders/1bReauP_LtdzBFpCk82RL3N8hvufGSr8r?usp=drive_link).
 
 - Recreate processed dataset for **fine-tuning** and **testing** (described in [Data](#data) section).
 ```shell
@@ -74,7 +74,7 @@ python finetune.py
 
 To recreate the experiment in the Google Colab environment, click on the button below.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/data_exploration.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/XnibyH/PatentMatch-Experiment/blob/main/notebooks/colab_notebook.ipynb)
 
 
 ## Data
@@ -87,7 +87,7 @@ Download source files `train.parquet` and `test.parquet` from [Google Drive](htt
 Data Processing as shown in [data_exploration notebook](notebooks/data_exploration.ipynb) involved:
 - Fixing indexing based on *unnamed_col* and *index* columns
 - Dropping NaNs in columns' subset: *updated_index*/*index*, *text*, *text_b*, *label*
-- Dropping duplicated rows based on columns' subset: *text*, *text_b*
+- Dropping duplicated rows based on columns' subset: *text*, *text_b*, *label*
 - Saving new files in *data* folder: **train_clean.parquet** and **test_clean.parquet**
 - Further **Train** data split for **Train** and **Validation** sets during a model training
 
@@ -109,7 +109,7 @@ Table 2. shows description of the columns from the Dataset
 
 ### Dataset Card
 
-Data consists of **Train** and **Test** sets and is characterized in Table 1.
+Dataset consists of **Train** and **Test** sets and is characterized in Table 1.
 
 | Table 1.                         | Train | Test  | 
 | ---                              | ---   | ---   |
