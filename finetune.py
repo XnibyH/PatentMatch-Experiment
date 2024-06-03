@@ -62,107 +62,109 @@ def compute_metrics(eval_pred) -> dict:
     }
 
 
-# Select the Model for Fine-Tuning
-all_models = {
-    'stsb-roberta-large': {'model': 'cross-encoder/stsb-roberta-large', 'tokenizer': 'cross-encoder/stsb-roberta-large'},
-}
+if __name__ == "__main__":
 
-selection = 'stsb-roberta-large'
-selected_model = all_models[selection]
-print(f"Finetuning: {selection}.")
+    # Select the Model for Fine-Tuning
+    all_models = {
+        'stsb-roberta-large': {'model': 'cross-encoder/stsb-roberta-large', 'tokenizer': 'cross-encoder/stsb-roberta-large'},
+    }
 
-# Set mlflow parameters and start the experiment
-mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
-# # mlflow.start_run(experiment_id=experiment.experiment_id, log_system_metrics=True)
-mlflow.set_tag(key='mlflow.runName', value=f"Training_{selected_model['model'].split('/')[1]}_{timestamp()}")
+    selection = 'stsb-roberta-large'
+    selected_model = all_models[selection]
+    print(f"Finetuning: {selection}.")
 
-
-# Load and Train/Validation Split the Dataset
-print('Load the Dataset.')
-# loading train and test datasets
-dataset = datasets.load_dataset("parquet", data_files={"train": "data/train_clean.parquet", "test": "data/test_clean.parquet"})
-
-# split train into train and validation sets 20%
-train_test_split = dataset['train'].train_test_split(test_size=0.20)
-
-# rename temporary test from train for validation
-train_test_split['validation'] = train_test_split.pop('test')
-
-# full dataset: train, validation and test
-dataset = datasets.DatasetDict({
-    'train': train_test_split['train'],
-    'validation': train_test_split['validation'],
-    'test': dataset['test']
-})
-
-# Tokenize the Dataset
-# init tokenizer
-print('Tokenizing the Dataset')
-tokenizer = AutoTokenizer.from_pretrained(selected_model['tokenizer'])
-
-def preprocess_function(batch):
-    """
-    Function to preprocess the dataset.
-    Extends the dataset with joined and tokenized pair of sentences for model input.
-    """
-    # Tokenize the pairs of texts
-    inputs = tokenizer(
-        batch['text'], batch['text_b'],
-        padding='max_length',
-        truncation=True,
-        max_length=tokenizer.model_max_length,  # None == tokenizer.model_max_length
-        return_tensors="pt",
-        )
-    inputs['label'] = batch['label']
-    return inputs
-
-# preprocess the data
-tokenized_dataset = dataset.map(preprocess_function, batched=True)
+    # Set mlflow parameters and start the experiment
+    mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
+    # # mlflow.start_run(experiment_id=experiment.experiment_id, log_system_metrics=True)
+    mlflow.set_tag(key='mlflow.runName', value=f"Training_{selected_model['model'].split('/')[1]}_{timestamp()}")
 
 
-#Configure a Model
-# set num_labels for selected model - cross-encoder support only 1 label
-print('Configuring the Model.')
-num_labels = 1
-# init the model
-model = AutoModelForSequenceClassification.from_pretrained(selected_model['model'], num_labels=num_labels)
+    # Load and Train/Validation Split the Dataset
+    print('Load the Dataset.')
+    # loading train and test datasets
+    dataset = datasets.load_dataset("parquet", data_files={"train": "data/train_clean.parquet", "test": "data/test_clean.parquet"})
 
-# Set Training Arguments and Initialize Trainer
-training_args = TrainingArguments(
-    output_dir=f"./fine_tuning_results/{selected_model['model'].split('/')[1]}",
-    num_train_epochs=5,
-    per_device_train_batch_size=8,  
-    per_device_eval_batch_size=16, 
-    warmup_steps=20,  # number of warmup steps for learning rate scheduler
-    weight_decay=0.01,  # strength of weight decay
-    learning_rate=2e-5,  # learning rate
-    save_total_limit=5,  # limit the total amount of checkpoints, delete the older checkpoints
-    logging_dir=f"./fine_tuning_results/{selected_model['model'].split('/')[1]}/logs",  # directory for storing logs
-    logging_steps=50,
-    eval_strategy="steps",
-    eval_steps=50,
-)
+    # split train into train and validation sets 20%
+    train_test_split = dataset['train'].train_test_split(test_size=0.20)
 
-# init trainer
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=tokenized_dataset["train"],
-    eval_dataset=tokenized_dataset["validation"],
-    compute_metrics=compute_metrics,
-)
+    # rename temporary test from train for validation
+    train_test_split['validation'] = train_test_split.pop('test')
 
-# Start Training
-print('Start Training')
-# Train the model
-trainer.train()
+    # full dataset: train, validation and test
+    dataset = datasets.DatasetDict({
+        'train': train_test_split['train'],
+        'validation': train_test_split['validation'],
+        'test': dataset['test']
+    })
 
-# Evaluate the model
-trainer.evaluate()
+    # Tokenize the Dataset
+    # init tokenizer
+    print('Tokenizing the Dataset')
+    tokenizer = AutoTokenizer.from_pretrained(selected_model['tokenizer'])
 
-# end experiment
-mlflow.end_run()
+    def preprocess_function(batch):
+        """
+        Function to preprocess the dataset.
+        Extends the dataset with joined and tokenized pair of sentences for model input.
+        """
+        # Tokenize the pairs of texts
+        inputs = tokenizer(
+            batch['text'], batch['text_b'],
+            padding='max_length',
+            truncation=True,
+            max_length=tokenizer.model_max_length,  # None == tokenizer.model_max_length
+            return_tensors="pt",
+            )
+        inputs['label'] = batch['label']
+        return inputs
 
-# Save the Model
-print(f'Saving Finetuned Model: ./saved_models/{selected_model['model'].split('/')[1]}_FT')
-trainer.save_model(f"./saved_models/{selected_model['model'].split('/')[1]}_FT")
+    # preprocess the data
+    tokenized_dataset = dataset.map(preprocess_function, batched=True)
+
+
+    #Configure a Model
+    # set num_labels for selected model - cross-encoder support only 1 label
+    print('Configuring the Model.')
+    num_labels = 1
+    # init the model
+    model = AutoModelForSequenceClassification.from_pretrained(selected_model['model'], num_labels=num_labels)
+
+    # Set Training Arguments and Initialize Trainer
+    training_args = TrainingArguments(
+        output_dir=f"./fine_tuning_results/{selected_model['model'].split('/')[1]}",
+        num_train_epochs=5,
+        per_device_train_batch_size=8,  
+        per_device_eval_batch_size=16, 
+        warmup_steps=20,  # number of warmup steps for learning rate scheduler
+        weight_decay=0.01,  # strength of weight decay
+        learning_rate=2e-5,  # learning rate
+        save_total_limit=5,  # limit the total amount of checkpoints, delete the older checkpoints
+        logging_dir=f"./fine_tuning_results/{selected_model['model'].split('/')[1]}/logs",  # directory for storing logs
+        logging_steps=50,
+        eval_strategy="steps",
+        eval_steps=50,
+    )
+
+    # init trainer
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=tokenized_dataset["train"],
+        eval_dataset=tokenized_dataset["validation"],
+        compute_metrics=compute_metrics,
+    )
+
+    # Start Training
+    print('Start Training')
+    # Train the model
+    trainer.train()
+
+    # Evaluate the model
+    trainer.evaluate()
+
+    # end experiment
+    mlflow.end_run()
+
+    # Save the Model
+    print(f'Saving Finetuned Model: ./saved_models/{selected_model['model'].split('/')[1]}_FT')
+    trainer.save_model(f"./saved_models/{selected_model['model'].split('/')[1]}_FT")
