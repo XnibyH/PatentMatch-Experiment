@@ -8,3 +8,6 @@ data/*
 !data/.gitkeep
 .venv
 notebooks.old*
+notebooks/*
+!notebooks/colab_notebook.ipynb
+!notebooks/data_exploration.ipynb
