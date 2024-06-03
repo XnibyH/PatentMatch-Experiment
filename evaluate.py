@@ -20,7 +20,7 @@ if __name__ == "__main__":
     device = 0 if torch.cuda.is_available() else -1
 
     # Load the Test Dataset
-    print('Loading the Test Dataset')
+    print('Loading the Test Dataset.')
 
     dataset_path = 'data/test_clean.parquet'
     df_test = pd.read_parquet(dataset_path)
@@ -33,8 +33,8 @@ if __name__ == "__main__":
     # y_true
     labels_true = df_test['label'].tolist()
 
-    #@title Select the Model for Evaluation
-    #@markdown Make sure to fine-tune and save the base model before selecting ***_FT** models
+    # Select the Model for Evaluation
+    # Make sure to fine-tune and save the base model before selecting ***_FT** models
     all_models = {
         'stsb-roberta-large': {'model': 'cross-encoder/stsb-roberta-large', 'tokenizer': 'cross-encoder/stsb-roberta-large'},
         # fine-tuned models below
