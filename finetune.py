@@ -166,5 +166,5 @@ if __name__ == "__main__":
     mlflow.end_run()
 
     # Save the Model
-    print(f'Saving Finetuned Model: ./saved_models/{selected_model['model'].split('/')[1]}_FT')
+    print(f"Saving Finetuned Model: ./saved_models/{selected_model['model'].split('/')[1]}_FT")
     trainer.save_model(f"./saved_models/{selected_model['model'].split('/')[1]}_FT")
