@@ -69,7 +69,7 @@ all_models = {
 
 selection = 'stsb-roberta-large'
 selected_model = all_models[selection]
-
+print(f"Finetuning: {selection}.")
 
 # Set mlflow parameters and start the experiment
 mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
@@ -78,6 +78,7 @@ mlflow.set_tag(key='mlflow.runName', value=f"Training_{selected_model['model'].s
 
 
 # Load and Train/Validation Split the Dataset
+print('Load the Dataset.')
 # loading train and test datasets
 dataset = datasets.load_dataset("parquet", data_files={"train": "data/train_clean.parquet", "test": "data/test_clean.parquet"})
 
@@ -96,6 +97,7 @@ dataset = datasets.DatasetDict({
 
 # Tokenize the Dataset
 # init tokenizer
+print('Tokenizing the Dataset')
 tokenizer = AutoTokenizer.from_pretrained(selected_model['tokenizer'])
 
 def preprocess_function(batch):
@@ -120,6 +122,7 @@ tokenized_dataset = dataset.map(preprocess_function, batched=True)
 
 #Configure a Model
 # set num_labels for selected model - cross-encoder support only 1 label
+print('Configuring the Model.')
 num_labels = 1
 # init the model
 model = AutoModelForSequenceClassification.from_pretrained(selected_model['model'], num_labels=num_labels)
@@ -150,6 +153,7 @@ trainer = Trainer(
 )
 
 # Start Training
+print('Start Training')
 # Train the model
 trainer.train()
 
@@ -160,4 +164,5 @@ trainer.evaluate()
 mlflow.end_run()
 
 # Save the Model
+print('Saving Finetuned Model.')
 trainer.save_model(f"./saved_models/{selected_model['model'].split('/')[1]}_FT")
