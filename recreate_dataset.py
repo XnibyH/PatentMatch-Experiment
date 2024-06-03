@@ -125,6 +125,6 @@ if __name__ == "__main__":
         check_indexes_list.extend(df_test.index.tolist())
 
         if len(check_indexes_list) == len(set(check_indexes_list)):
-        print("No duplicated index found.")
+                print("No duplicated index found.")
         else:
-        print('Found duplicated index!')
+                print('Found duplicated index!')
