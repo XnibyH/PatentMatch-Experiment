@@ -97,7 +97,7 @@ Data Processing as shown in [data_exploration notebook](notebooks/data_explorati
 
 Table 1. shows description of the columns from the Dataset
 
-| Column Name           | Descritption  |
+| Column Name           | Description  |
 | ---                   | ---           |
 | index                 | index number  |
 | claim_id              | id of claim from patent application|
