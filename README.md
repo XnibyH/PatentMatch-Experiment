@@ -69,6 +69,7 @@ python finetune.py
 python evaluate.py
 ```
 
+- Finally, check your MLflow server for results and metrics.
 
 ### Google Colab Experiment
 
