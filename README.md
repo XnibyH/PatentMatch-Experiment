@@ -59,12 +59,12 @@ MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metric
 python recreate_dataset.py
 ```
 
-- Run **fine-tuning** script for **stsb-roberta-large** model
+- Run **fine-tuning** script for **stsb-roberta-large** model (more about selected models in [Model](#model) section).
 ```shell
 python finetune.py
 ```
 
-- Run **test** script for **stsb-roberta-large** and **stsb-roberta-large *fine-tuned*** model
+- Run **test** script for **stsb-roberta-large** and **stsb-roberta-large *fine-tuned*** model.
 ```shell
 python evaluate.py
 ```
