@@ -56,17 +56,17 @@ MLFLOW_ENABLE_SYSTEM_METRICS_LOGGING = 'True'  # set 'True' to log system metric
 
 - Recreate processed dataset for **fine-tuning** and **testing** (described in [Data](#data) section).
 ```shell
-python recreate_dataset.py
+python examples/recreate_dataset.py
 ```
 
 - Run **fine-tuning** script for **stsb-roberta-large** model (more about selected models in [Model](#model) section).
 ```shell
-python finetune.py
+python examples/finetune.py
 ```
 
 - Run **test** script for **stsb-roberta-large** and **stsb-roberta-large *fine-tuned*** model.
 ```shell
-python evaluate.py
+python examples/evaluate.py
 ```
 
 - Finally, check your MLflow server for results and metrics.
