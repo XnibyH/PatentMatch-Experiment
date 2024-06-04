@@ -1,3 +1,7 @@
+import sys
+# add source dir for imports
+sys.path.append('.')
+
 import mlflow
 import datasets
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer

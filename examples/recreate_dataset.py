@@ -1,4 +1,9 @@
+import sys
+# add source dir for imports
+sys.path.append('.')
+
 import pandas as pd
+
 
 if __name__ == "__main__":
         # load training data

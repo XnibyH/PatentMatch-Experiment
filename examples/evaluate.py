@@ -1,5 +1,8 @@
 import os
 import sys
+# add source dir for imports
+sys.path.append('.')
+
 import mlflow
 from sklearn.metrics import matthews_corrcoef, f1_score
 from src.utils import timestamp
